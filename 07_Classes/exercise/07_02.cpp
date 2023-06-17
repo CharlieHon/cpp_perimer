@@ -20,6 +20,10 @@ Sales_data add(const Sales_data &lhs, const Sales_data &rhs);
 // 7.3
 struct Person
 {
+    friend std::istream &read(std::istream &, Person &);
+    friend std::ostream &print(std::ostream &, const Person &);
+
+public: // 函数是暴露给外部的接口
     // 构造函数
     Person() = default;
     Person(const std::string &n, const std::string &add) : name(n), address(add)  {}
@@ -28,6 +32,7 @@ struct Person
     std::string getName() const  {return name;}
     std::string getAddress() const {return address;}
 
+private:    // 数据则应该隐藏让外部不可见
     std::string name;
     std::string address;
 };
