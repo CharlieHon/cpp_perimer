@@ -19,7 +19,8 @@ public:
     Sales_data(const std::string &s, unsigned n, double p) :
                 bookNo(s), units_sold(n), revenue(n*p)  {}
     Sales_data(const std::string &s) : bookNo(s)    {}
-    Sales_data(std::istream &)  {read(std::cin, *this);}
+    // Sales_data(std::istream &)  {read(std::cin, *this);}
+    Sales_data(std::istream &);
 
     std::string isbn() const {return bookNo;}
     Sales_data& combine(const Sales_data &);
@@ -42,9 +43,26 @@ std::ostream& print(std::ostream&, const Sales_data&);
 
 int main()
 {
+    Sales_data total(std::cin);
+    if(!total.isbn().empty()){
+        std::istream &is = std::cin;
+        while(is){
+            Sales_data trans(is);
+            if(!is) break;
+            if(trans.isbn() == total.isbn())
+                total.combine(trans);
+            else{
+                print(std::cout, total) << std::endl;
+                total = trans;
+            }
+        }
+        print(std::cout, total);
+    }else{
+        std::cerr << "No data?" << std::endl;
+        return -1;
+    }
 
-
-    return ;
+    return 0;
 }
 
 // member function
