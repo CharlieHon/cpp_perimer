@@ -5,48 +5,28 @@
 
 using namespace std;
 
-int fileToVector(const string &fileName, vector<string> &svec){
-    fstream inFile(fileName);
-    if(!inFile)
-        return 1;
-    string s;
-    while(getline(inFile, s))   // 按行输出
-        svec.push_back(s);
-    if(inFile.eof())
-        return 2;
-    if(inFile.bad())
-        return 3;
-    if(inFile.fail())
-        return 4;
-
-    return 2;
+// 练习8.4：以读模式打开一个文件，将其内容读入到一个string的vector中，将每一行作为一个独立的元素存于vector中。
+void ReadFileVector(const string &fileName, vector<string> &svec){
+    ifstream in(fileName);
+    if(in){ // 文件打开成功
+        string s;
+        while(getline(in, s))   // 练习8.5：将每个单词作为一个独立的元素进行存储while(in >> s)
+            svec.push_back(s);
+    }
+    if(!svec.empty()){
+        for(const auto &s : svec)
+            cout << s << endl;
+    }
+    cout << endl;
+    cout << "Totally: " << svec.size() << "row(s)." << endl;
 }
 
 int main()
 {
     string fileName;
-    cout << "Please enter the file name:" << endl;
-    cin >> fileName;
     vector<string> svec;
-    switch (fileToVector(fileName, svec))
-    {
-    case 1:
-        cout << "error: can not open the file:" << fileName << endl;
-        break;
-    case 2:
-        cout << "Success!" << endl;
-        break;
-    case 3:
-        cout << "error: system failure." << endl;
-        break;
-    case 4:
-        cout << "error: read failure." << endl;
-        break;
-    }
-    cout << "The contents in the vector: ";
-    for(const string &s : svec){
-        cout << s << endl;
-    }
-    cout << "Totally " << svec.size() << " row(s)." << endl;
+    cout << "Please enter the file name:" << ends;
+    cin >> fileName;
+    ReadFileVector(fileName, svec);
     return 0;
 }
