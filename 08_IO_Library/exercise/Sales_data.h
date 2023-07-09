@@ -19,12 +19,12 @@ public:
     Sales_data(std::istream &is) : Sales_data() {   read(is, *this);    }
     // 函数成员
     std::string isbn() const {   return bookNo;  }
+    double avg_price() const
+        {   return units_sold ? revenue/units_sold : 0; }
     Sales_data& combine(const Sales_data &rhs);
 
 
 private:
-    double avg_price() const
-            {   return units_sold ? revenue/units_sold : 0; }
     std::string bookNo;
     unsigned units_sold = 0;
     double revenue = 0.0;
