@@ -30,6 +30,19 @@ index find2(index begin, index end, int x){
     return end;
 }
 
+// 9.15：编写程序，判断两个vector<int>是否相等
+bool compare(const vector<int> &v1, const vector<int> &v2){
+    return v1 == v2;
+}
+
+// 9.16：从写上一题的程序，比较一个list<int>中的元素和一个vector<int>中的元素
+bool compare2(const list<int> &l, const vector<int> v){
+    if(l.size() != v.size())
+        return false;
+    vector<int> v1(l.begin(), l.end());
+    return compare(v1, v);
+}
+
 int main()
 {
     // 9.2：定义一个list对象，其元素类型是int的deque
@@ -73,6 +86,12 @@ int main()
     vector<string> j;
     j.assign(i.begin(), i.end());
 
+    // 9.17：假定c1和c2是两个容器，下面比较操作有何限制？
+    // if(c1 < c2);
+    /*
+        1. c1和c2必须是相同类型的容器并且保存相同类型的元素
+        2. 元素类型要支持关系运算符
+    */
 
     return 0;
 }
